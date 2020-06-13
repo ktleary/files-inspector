@@ -1,5 +1,5 @@
 import argparse
-from constants import directoryHelp, patternHelp, reportHelp
+from constants import directoryHelp, patternHelp, reportHelp, reportLocation
 
 
 def getOptions(args):
@@ -7,9 +7,13 @@ def getOptions(args):
     parser.add_argument("-d", "--directory", default=".", help=directoryHelp)
     parser.add_argument("-r",
                         "--report",
-                        default="/tmp/report.md",
+                        default=reportLocation,
                         help=reportHelp)
-    parser.add_argument("-p", "--pattern", action="append", help=patternHelp),
+    parser.add_argument("-p",
+                        "--pattern",
+                        default=["*.*"],
+                        action="append",
+                        help=patternHelp),
 
     options = parser.parse_args(args)
     return options

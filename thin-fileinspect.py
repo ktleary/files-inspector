@@ -5,20 +5,18 @@ from utils import getOptions
 
 def listFiles(directory, patterns="*.*"):
     filepaths = []
-    for pattern in patterns.split("|"):
-        filepaths.extend(glob.glob(os.path.join(directory, pattern)))
+    for ROOT, DIR, FILES in os.walk(directory):
+        for file in FILES:
+            if file.endswith((tuple(patterns))):
+                filepaths.append(os.path.join(ROOT, file))
     return sorted(filepaths)
 
 
 def main():
-    args = getOptions(sys.argv[1:])
-    # files = listFiles(args.directory, args.patterns)
-    # print(files)
-    print({
-        "direct": args.directory,
-        "report": args.report,
-        "patterns": args.patterns
-    })
+    options = getOptions(sys.argv[1:])
+    files = listFiles(options.directory, options.pattern)
+    for file in files:
+        print(file)
 
 
 if __name__ == "__main__":
