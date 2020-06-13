@@ -1,6 +1,5 @@
-import glob
 import os
-from utils import getOptions
+from utils import getOptions, pdf2text
 
 
 def listFiles(directory, patterns="*.*"):
@@ -12,11 +11,18 @@ def listFiles(directory, patterns="*.*"):
     return sorted(filepaths)
 
 
+def processFiles(filelist):
+    for filepath in filelist:
+        if filepath.endswith("pdf"):
+            print(filepath)
+            text = pdf2text(filepath)
+    return text
+
+
 def main():
     options = getOptions(sys.argv[1:])
     files = listFiles(options.directory, options.pattern)
-    for file in files:
-        print(file)
+    processFiles(files)
 
 
 if __name__ == "__main__":
