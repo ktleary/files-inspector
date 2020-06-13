@@ -14,7 +14,11 @@ def main():
     args = getOptions(sys.argv[1:])
     # files = listFiles(args.directory, args.patterns)
     # print(files)
-    print({"direct": args.directory, "report": args.report})
+    print({
+        "direct": args.directory,
+        "report": args.report,
+        "patterns": args.patterns
+    })
 
 
 if __name__ == "__main__":
